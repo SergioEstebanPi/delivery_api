@@ -1,4 +1,6 @@
 const User = require('../models/user')
+const jwt = require('jsonwebtoken')
+const keys = require('../config/keys')
 
 module.exports = {
     async getAll(req, res, next){
@@ -30,6 +32,61 @@ module.exports = {
             return res.status(500).json({
                 success: false,
                 message: 'Error al registrar el usuario',
+                error: err
+            });
+        }
+    },
+
+    async login(req, res, next){
+        try{
+            const email = req.body.email;
+            const password = req.body.password;
+
+            const myUser = await User.findByEmail(email);
+            if(!myUser){
+                return res.status(401).json({
+                    success: false,
+                    message: 'El correo no fue encontrado'
+                });
+            }
+
+            if(User.isPasswordMatched(password, myUser.password)){
+                const token = jwt.sign(
+                    {
+                        id: myUser.id,
+                        email: myUser.email
+                    },
+                    keys.secretOrKey, 
+                    {
+                    //expiresIn: (60*60*24) // 1 hora
+                    }
+                );
+                const data = {
+                    id: myUser.id,
+                    name: myUser.name,
+                    lastname: myUser.lastname,
+                    email: myUser.email,
+                    phone: myUser.phone,
+                    image: myUser.image,
+                    session_token: `JWT ${token}`
+                }
+
+                return res.status(200).json({
+                    success: true,
+                    data: data
+                });
+            } else {
+                return res.status(401).json({
+                    success: true,
+                    message: 'La contraseña es incorrecta',
+                    data: data.id
+                });
+            }
+        } catch(err){
+            console.log(`Error: ${err}`)
+            return res.status(500).json({
+                success: false,
+                message: 'Error al iniciar sesión',
                 error: err
             });
         }
