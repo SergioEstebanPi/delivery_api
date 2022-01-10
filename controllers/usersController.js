@@ -73,8 +73,11 @@ module.exports = {
                     email: myUser.email,
                     phone: myUser.phone,
                     image: myUser.image,
-                    session_token: `${token}`
+                    session_token: `${token}`,
+                    roles: myUser.roles
                 }
+
+                console.log(`Usuario enviado ${data}`)
 
                 return res.status(200).json({
                     success: true,
