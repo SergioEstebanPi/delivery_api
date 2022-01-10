@@ -1,6 +1,7 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const keys = require('../config/keys')
+const Rol = require('../models/Rol')
 
 module.exports = {
     async getAll(req, res, next){
@@ -22,6 +23,10 @@ module.exports = {
             const user = req.body;
             const data = await User.create(user);
             console.log(`Usuario: ${data}`)
+
+            // rol cliente default
+            await Rol.create(data.id, 1);
+
             return res.status(201).json({
                 success: true,
                 message: 'El registro se realizo correctamente',
