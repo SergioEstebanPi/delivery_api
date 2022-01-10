@@ -68,11 +68,12 @@ module.exports = {
                     email: myUser.email,
                     phone: myUser.phone,
                     image: myUser.image,
-                    session_token: `JWT ${token}`
+                    session_token: `${token}`
                 }
 
                 return res.status(200).json({
                     success: true,
+                    message: 'El usuario ha sido autenticado',
                     data: data
                 });
             } else {
