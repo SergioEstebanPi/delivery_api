@@ -5,6 +5,9 @@ const server = http.createServer(app)
 const logger = require('morgan')
 const cors = require('cors')
 
+// routes
+const users = require('../routes/usersRoutes')
+
 const port = process.env.PORT || 3000
 
 app.use(logger('dev'))
@@ -16,7 +19,10 @@ app.disable('x-powered-by')
 
 app.set('port', port)
 
-server.listen(port, '192.168.189.41' || 'localhost', function() {
+// call the routes
+users(app)
+
+server.listen(port, '192.168.20.31' || 'localhost', function() {
     console.log('server running ' + port + " iniciado")
 })
 
@@ -29,3 +35,8 @@ app.use((err, req, res, next) => {
     console.log(err)
     res.status(err.status || 500).send(err.stack)
 })
+
+module.exports = {
+    app: app,
+    server: server
+}

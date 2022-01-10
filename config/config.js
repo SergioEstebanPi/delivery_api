@@ -5,7 +5,7 @@ const options = {
 }
 
 const pgp = require('pg-promise')(options)
-const types = pgp.pg.type;
+const types = pgp.pg.types;
 types.setTypeParser(1114, function(stringValue) {
     return stringValue;
 })
@@ -13,9 +13,9 @@ types.setTypeParser(1114, function(stringValue) {
 const databaseConfig = {
     'host': '127.0.0.1',
     'port': '5432',
-    'database': 'delivery',
+    'database': 'postgres',
     'user': 'postgres',
-    'password': ''
+    'password': 'postgres'
 }
 
 const db = pgp(databaseConfig)
