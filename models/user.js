@@ -82,6 +82,7 @@ User.create = (user) => {
             name,
             lastname,
             phone,
+            image,
             password,
             created_at,
             updated_at
@@ -101,6 +102,7 @@ User.create = (user) => {
             user.name,
             user.lastname,
             user.phone,
+            user.image,
             myPasswordHashed,
             new Date(),
             new Date()
