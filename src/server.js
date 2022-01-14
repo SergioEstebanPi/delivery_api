@@ -22,7 +22,7 @@ app.set('port', port)
 // call the routes
 users(app)
 
-server.listen(port, '192.168.127.41' || 'localhost', function() {
+server.listen(port, '192.168.10.41' || 'localhost', function() {
     console.log('server running ' + port + " iniciado")
 })
 
