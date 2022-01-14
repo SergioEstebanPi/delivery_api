@@ -52,6 +52,38 @@ User.findByEmail = (email) => {
     return db.oneOrNone(sql, [email]);
 }
 
+User.findByUserId = (id) => {
+    const sql = `
+        SELECT
+            u.id,
+            u.email,
+            u.name,
+            u.lastname,
+            u.image,
+            u.phone,
+            u.password,
+            u.session_token,
+            json_agg(
+                json_build_object(
+                    'id', r.id,
+                    'name', r.name,
+                    'image', r.image,
+                    'route', r.route
+                )
+            ) roles
+        FROM users u
+        JOIN user_has_roles uhr
+            ON uhr.id_user = u.id
+        JOIN roles r
+            ON r.id = uhr.id_rol
+        WHERE u.id = $1
+        GROUP BY u.id
+        ;
+    `;
+
+    return db.oneOrNone(sql, [id]);
+}
+
 User.findById = (id, callback) => {
     const sql = `
         SELECT
