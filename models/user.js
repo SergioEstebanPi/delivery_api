@@ -93,7 +93,8 @@ User.create = (user) => {
             $4,
             $5,
             $6,
-            $7
+            $7,
+            $8
         ) RETURNING id;
     `
     return db.oneOrNone(sql, 

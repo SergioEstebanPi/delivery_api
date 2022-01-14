@@ -2,7 +2,7 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const keys = require('../config/keys')
 const Rol = require('../models/Rol')
-const { storage } = require('../utils/cloud_storage')
+const cloud_storage = require('../utils/cloud_storage')
 
 module.exports = {
     async getAll(req, res, next){
@@ -51,7 +51,8 @@ module.exports = {
             const files = req.files;
 
             if(files.length > 0){
-                const pathImage = `image_${Date.now}`; // name of the file to store
+                const pathImage = `image_${Date.now()}`; // name of the file to store
+                const storage = cloud_storage;
                 const url = await storage(files[0], pathImage);
 
                 if(url != undefined && url != null){
