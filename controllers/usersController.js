@@ -46,7 +46,7 @@ module.exports = {
     async registerWithImage(req, res, next){
         try{
             const user = JSON.parse(req.body.user);
-            console.log(`Datos enviados del usuario: ${user}`);
+            console.log(`Datos enviados del usuario: ${JSON.stringify(user)}`);
 
             const files = req.files;
 
@@ -80,6 +80,39 @@ module.exports = {
             });
         }
     },    
+
+    async update(req, res, next){
+        try{
+            const user = JSON.parse(req.body.user);
+            console.log(`Datos enviados del usuario: ${JSON.stringify(user)}`);
+
+            const files = req.files;
+
+            if(files.length > 0){
+                const pathImage = `image_${Date.now()}`; // name of the file to store
+                const storage = cloud_storage;
+                const url = await storage(files[0], pathImage);
+
+                if(url != undefined && url != null){
+                    user.image = url;
+                }
+            }
+            
+            await User.update(user);
+
+            return res.status(201).json({
+                success: true,
+                message: 'Los datos se actualizaron correctamente',
+            });
+        } catch(err){
+            console.log(`Error: ${err}`)
+            return res.status(500).json({
+                success: false,
+                message: 'Error al actualizar el usuario',
+                error: err
+            });
+        }
+    },
 
     async login(req, res, next){
         try{
