@@ -23,7 +23,7 @@ module.exports = {
         try{
             const id = req.params.id;
             const data = await User.findByUserId(id);
-            console.log(`Usuario: ${data}`)
+            console.log(`Usuario: ${JSON.stringify(data)}`)
             return res.status(200).json(data);
         } catch(err){
             console.log(`Error: ${err}`)
@@ -38,7 +38,7 @@ module.exports = {
         try{
             const user = req.body;
             const data = await User.create(user);
-            console.log(`Usuario: ${data}`)
+            console.log(`Usuario: ${JSON.stringify(data)}`)
 
             // rol cliente default
             await Rol.create(data.id, 1);
@@ -103,7 +103,7 @@ module.exports = {
 
             const files = req.files;
 
-            if(files.length > 0){
+            if(files != null && files.length > 0){
                 const pathImage = `image_${Date.now()}`; // name of the file to store
                 const storage = cloud_storage;
                 const url = await storage(files[0], pathImage);
@@ -150,7 +150,8 @@ module.exports = {
                     },
                     keys.secretOrKey, 
                     {
-                    //expiresIn: (60*60*24) // 1 hora
+                        //expiresIn: (60*60*24) // 1 hora
+                        expiresIn:  (60 * 2) // 2 minutos
                     }
                 );
                 const data = {
@@ -164,7 +165,7 @@ module.exports = {
                     roles: myUser.roles
                 }
 
-                await User.updateToken(myUser.id, token);
+                await User.updateToken(myUser.id, `JWT ${token}`);
 
                 console.log(`Usuario enviado ${data}`)
 
