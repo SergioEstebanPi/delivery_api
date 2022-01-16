@@ -189,5 +189,23 @@ module.exports = {
                 error: err
             });
         }
+    },
+
+    async logout(req, res, next){
+        try {
+            const id = req.body.id;
+            await User.updateToken(id, null);
+            return res.status(200).json({
+                success: true,
+                message: 'La sesion se ha cerrado correctamente'
+            });
+        } catch (e) {
+            console.log(`Error: ${e}`)
+            return res.status(501).json({
+                success: false,
+                message: 'Error al momento de cerrar sesion',
+                error: e
+            })
+        }
     }
 }
