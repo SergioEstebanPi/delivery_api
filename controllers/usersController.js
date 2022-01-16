@@ -117,7 +117,7 @@ module.exports = {
 
             return res.status(201).json({
                 success: true,
-                message: 'Los datos se actualizaron correctamente',
+                message: 'Los datos se actualizaron correctamente'
             });
         } catch(err){
             console.log(`Error: ${err}`)
@@ -160,7 +160,7 @@ module.exports = {
                     email: myUser.email,
                     phone: myUser.phone,
                     image: myUser.image,
-                    session_token: `${token}`,
+                    session_token: `JWT ${token}`,
                     roles: myUser.roles
                 }
 
