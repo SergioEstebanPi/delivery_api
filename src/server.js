@@ -36,7 +36,7 @@ app.set('port', port)
 // call the routes
 users(app, upload)
 
-const ip = '192.168.90.41'
+const ip = '192.168.201.41'
 server.listen(port, ip || 'localhost', function() {
     console.log('server running ' + port + " iniciado")
 })

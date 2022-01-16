@@ -164,6 +164,8 @@ module.exports = {
                     roles: myUser.roles
                 }
 
+                await User.updateToken(myUser.id, token);
+
                 console.log(`Usuario enviado ${data}`)
 
                 return res.status(200).json({
