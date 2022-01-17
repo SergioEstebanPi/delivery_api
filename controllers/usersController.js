@@ -167,7 +167,7 @@ module.exports = {
 
                 await User.updateToken(myUser.id, `JWT ${token}`);
 
-                console.log(`Usuario enviado ${data}`)
+                console.log(`Usuario enviado ${JSON.stringify(data)}`)
 
                 return res.status(200).json({
                     success: true,
