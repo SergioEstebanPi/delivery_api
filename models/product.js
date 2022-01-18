@@ -82,3 +82,6 @@ Product.update = (product) => {
         new Date()
     ]);
 }
+
+
+module.exports = Product;

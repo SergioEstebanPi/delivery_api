@@ -6,7 +6,7 @@ module.exports = {
 
     async create(req, res, next) {
         try {
-            const product = req.body.product;
+            const product = JSON.parse(req.body.product);
             console.log(`Producto recibido: ${JSON.stringify(product)}`);
 
             const files = req.files;
@@ -40,17 +40,19 @@ module.exports = {
 
                             await Product.update(product);
                             inserts = inserts + 1;
-
-                            if(inserts == files.length){
-                                return res.status(201).json({
-                                    success: true,
-                                    message: 'El producto se ha creado correctamente'
-                                });
-                            }
+                        }).catch((err) => {
+                            console.log(`Async foreach error: ${err}`);
                         });
                     }
 
-                    start();
+                    await start();
+                    
+                    if(inserts == files.length){
+                        return res.status(201).json({
+                            success: true,
+                            message: 'El producto se ha creado correctamente'
+                        });
+                    }
 
                 } catch (error) {
                     console.log(`Error: ${error}`);

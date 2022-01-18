@@ -51,7 +51,7 @@ users(app, upload)
 categories(app)
 products(app, upload)
 
-const ip = '192.168.236.41'
+const ip = '192.168.69.42'
 server.listen(port, ip || 'localhost', function() {
     console.log('server running ' + port + " iniciado")
 })
