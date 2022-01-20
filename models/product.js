@@ -15,6 +15,31 @@ Product.getAll = () => {
     return db.manyOrNone(sql);
 }
 
+Product.findByCategoryId = (id_category) => {
+    const sql = `
+        SELECT
+            p.id,
+            p.name,
+            p.description,
+            p.price,
+            p.image1,
+            p.image2,
+            p.image3,
+            p.id_category
+        FROM
+            products AS p
+        INNER JOIN
+            categories AS c
+        ON
+            p.id_category = c.id
+        WHERE
+            c.id = $1
+    `;
+    return db.manyOrNone(sql, [
+        id_category
+    ]);
+}
+
 Product.create = (product) => {
     const sql = `
         INSERT INTO

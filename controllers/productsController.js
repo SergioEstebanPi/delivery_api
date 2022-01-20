@@ -1,8 +1,29 @@
 const Product = require('../models/product');
 const cloud_storage = require('../utils/cloud_storage');
 const asyncForeach = require('../utils/async_foreach');
+const { findByCategoryId } = require('../models/product');
 
 module.exports = {
+
+    async findByCategoryId(req, res, next){
+        try{
+            const id_category = req.params.id_category;
+            const data = await Product.findByCategoryId(id_category);
+            console.log(JSON.stringify(data));
+            return res.status(201).json(
+                data
+            );
+        } catch(error){
+            console.log(`Error: ${error}`);
+            return res.status(501).json(
+                {
+                    success: false,
+                    message: `Error al listar los productos`,
+                    error: error
+                }
+            )
+        }
+    },
 
     async create(req, res, next) {
         try {
