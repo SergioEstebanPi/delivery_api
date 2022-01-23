@@ -3,6 +3,23 @@ const OrderHasProducts = require('../models/order_has_products')
 
 module.exports = {
 
+
+    async findByStatus(req, res, next) {
+        try {
+            const status = req.params.status;
+            const data = await Order.findByStatus(status);
+            console.log(`Estados: ${JSON.stringify(data)}`);
+            return res.status(200).json(data);
+        } catch (error) {
+            console.log(`Error: ${error}`);
+            return res.status(501).json({
+                success: false,
+                message: 'Hubo un error al obtener las ordenes',
+                error: error
+            });
+        }
+    },
+
     async findByClientId(req, res, next) {
         try {
             const id_client = req.params.id_client;

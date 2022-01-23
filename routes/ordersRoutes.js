@@ -3,6 +3,7 @@ const passport = require('passport')
 
 module.exports = (app) => {
     // TRAER DATOS
+    app.get('/api/orders/findByStatus/:status', passport.authenticate('jwt', {session: false}), OrderController.findByStatus)
     app.get('/api/orders/findByClientId/:id_client', passport.authenticate('jwt', {session: false}), OrderController.findByClientId)
 
     // GUARDAR DATOS
