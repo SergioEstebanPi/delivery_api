@@ -2,6 +2,23 @@ const Address = require('../models/address')
 
 module.exports = {
     
+    
+    async findByUserId(req, res, next) {
+        try {
+            const id_user = req.params.id_user;
+            const data = await Address.findByUserId(id_user);
+            console.log(`Direcciones: ${JSON.stringify(data)}`);
+            return res.status(200).json(data);
+        } catch (error) {
+            console.log(`Error: ${error}`);
+            return res.status(501).json({
+                success: false,
+                message: 'Hubo un error al obtener las direcciones',
+                error: error
+            });
+        }
+    },
+
     async create(req, res, next){
         try {
             const address = req.body;
