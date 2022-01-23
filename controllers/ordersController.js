@@ -22,7 +22,8 @@ module.exports = {
     async create(req, res, next) {
         try {
             const order = req.body;
-            console.log(`Ordern recibida: ${JSON.stringify(order)}`);
+            order.status = 'PAGADO';
+            console.log(`Orden recibida: ${JSON.stringify(order)}`);
 
             const data = await Order.create(order);
 
