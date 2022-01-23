@@ -151,7 +151,8 @@ module.exports = {
                     keys.secretOrKey, 
                     {
                         //expiresIn: (60*60*24) // 1 hora
-                        expiresIn:  (60 * 2) // 2 minutos
+                        //expiresIn:  (60 * 2) // 2 minutos
+                        expiresIn:  (60 * 10) // 10 minutos
                     }
                 );
                 const data = {
