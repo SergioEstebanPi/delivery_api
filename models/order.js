@@ -5,6 +5,7 @@ const Order = {};
 Order.findByStatus = (status) => {
     const sql = `
         SELECT
+            o.id,
             o.id_client,
             o.id_delivery,
             o.id_address,
