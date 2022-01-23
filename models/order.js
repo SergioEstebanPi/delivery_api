@@ -11,6 +11,18 @@ Order.findByStatus = (status) => {
             o.id_address,
             o.status,
             o.timestamp,
+            JSON_AGG(
+                JSON_BUILD_OBJECT(
+                    'id', p.id,
+                    'name', p.name,
+                    'description', p.description,
+                    'price', p.price,
+                    'image1', p.image1,
+                    'image2', p.image2,
+                    'image3', p.image3,
+                    'quantity', ohp.quantity
+                )
+            ) AS products,
             JSON_BUILD_OBJECT(
                 'id', u.id,
                 'name', u.name,
@@ -32,8 +44,18 @@ Order.findByStatus = (status) => {
         INNER JOIN
             address AS a
         ON o.id_address = a.id
+        INNER JOIN
+            order_has_products as ohp
+        ON o.id = ohp.id_order
+        INNER JOIN
+            products AS p
+        ON ohp.id_product = p.id
         WHERE
-            status = $1
+            o.status = $1
+        GROUP BY
+            o.id,
+            u.id,
+            a.id
     `;
 
     return db.manyOrNone(sql, [status]);
