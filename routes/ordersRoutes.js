@@ -10,5 +10,6 @@ module.exports = (app) => {
     app.post('/api/orders/create', passport.authenticate('jwt', {session: false}), OrderController.create)
 
     //ACTUALIZAR DATOS
+    app.put('/api/orders/updateToDispatched', passport.authenticate('jwt', {session: false}), OrderController.updateToDispatched)
 
 }

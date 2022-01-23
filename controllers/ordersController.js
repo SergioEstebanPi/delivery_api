@@ -63,4 +63,26 @@ module.exports = {
             });
         }
     },
+
+    async updateToDispatched(req, res, next) {
+        try {
+            const order = req.body;
+            order.status = 'DESPACHADO';
+            console.log(`Orden recibida: ${JSON.stringify(order)}`);
+
+            await Order.update(order);
+
+            return res.status(201).json({
+                success: true,
+                message: 'Orden actualizada correctamente'
+            });
+        } catch (error) {
+            console.log(`Error: ${error}`);
+            return res.status(501).json({
+                success: false,
+                message: 'Hubo un error al actualizar la orden',
+                error: error
+            });
+        }
+    },
 }
