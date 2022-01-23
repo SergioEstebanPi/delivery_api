@@ -53,7 +53,7 @@ categories(app)
 products(app, upload)
 address(app)
 
-const ip = '192.168.243.41'
+const ip = '192.168.177.41'
 server.listen(port, ip || 'localhost', function() {
     console.log('server running ' + ip + ' port: ' + port + " iniciado")
     console.log('http://' + ip + ':' + port + "/")
