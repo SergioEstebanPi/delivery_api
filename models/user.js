@@ -20,6 +20,30 @@ User.getAll = () => {
     return db.manyOrNone(sql);
 }
 
+User.findDeliveryMen = () => {
+    const sql = `
+        SELECT
+            u.id,
+            u.email,
+            u.name,
+            u.lastname,
+            u.image,
+            u.phone,
+            u.password,
+            u.session_token
+        FROM users u
+        JOIN user_has_roles uhr
+            ON uhr.id_user = u.id
+        JOIN roles r
+            ON r.id = uhr.id_rol
+        WHERE 
+            r.id = 3
+        ;
+    `;
+
+    return db.manyOrNone(sql);
+}
+
 User.findByEmail = (email) => {
     const sql = `
         SELECT
