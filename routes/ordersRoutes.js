@@ -4,8 +4,8 @@ const passport = require('passport')
 module.exports = (app) => {
     // TRAER DATOS
     app.get('/api/orders/findByStatus/:status', passport.authenticate('jwt', {session: false}), OrderController.findByStatus)
-    app.get('/api/orders/findByClientId/:id_client', passport.authenticate('jwt', {session: false}), OrderController.findByClientId)
     app.get('/api/orders/findByDeliveryIdAndStatus/:id_delivery/:status', passport.authenticate('jwt', {session: false}), OrderController.findByDeliveryIdAndStatus)
+    app.get('/api/orders/findByClientIdAndStatus/:id_client/:status', passport.authenticate('jwt', {session: false}), OrderController.findByClientIdAndStatus)
     
     // GUARDAR DATOS
     app.post('/api/orders/create', passport.authenticate('jwt', {session: false}), OrderController.create)

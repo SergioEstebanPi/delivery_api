@@ -20,6 +20,23 @@ module.exports = {
         }
     },
 
+    async findByClientIdAndStatus(req, res, next) {
+        try {
+            const id_client = req.params.id_client;
+            const status = req.params.status;
+            const data = await Order.findByClientIdAndStatus(id_client, status);
+            console.log(`Ordenes: ${JSON.stringify(data)}`);
+            return res.status(200).json(data);
+        } catch (error) {
+            console.log(`Error: ${error}`);
+            return res.status(501).json({
+                success: false,
+                message: 'Hubo un error al obtener las ordenes',
+                error: error
+            });
+        }
+    },
+
     async findByStatus(req, res, next) {
         try {
             const status = req.params.status;

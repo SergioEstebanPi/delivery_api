@@ -74,7 +74,7 @@ Order.findByDeliveryIdAndStatus = (id_delivery, status) => {
 }
 
 
-Order.findByStatus = (status) => {
+Order.findByClientIdAndStatus = (id_client, status) => {
     const sql = `
     SELECT
         o.id,
@@ -99,6 +99,7 @@ Order.findByStatus = (status) => {
             'id', u.id,
             'name', u.name,
             'lastname', u.lastname,
+            'phone', u.phone,
             'image', u.image
         ) AS client,
         JSON_BUILD_OBJECT(
@@ -132,7 +133,8 @@ Order.findByStatus = (status) => {
         products AS p
     ON ohp.id_product = p.id
     WHERE
-        o.status = $1
+        o.id_client = $1
+        AND o.status = $2
     GROUP BY
         o.id,
         u.id,
@@ -140,23 +142,7 @@ Order.findByStatus = (status) => {
         d.id
     `;
 
-    return db.manyOrNone(sql, [status]);
-}
-
-Order.findByClientId = (id_client) => {
-    const sql = `
-        SELECT
-            id_client,
-            id_address,
-            status,
-            timestamp
-        FROM
-            orders
-        WHERE
-            id_client = $1
-    `;
-
-    return db.manyOrNone(sql, [id_client]);
+    return db.manyOrNone(sql, [id_client, status]);
 }
 
 Order.create = (order) => {
