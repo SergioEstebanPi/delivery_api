@@ -55,7 +55,7 @@ products(app, upload)
 address(app)
 orders(app)
 
-const ip = '192.168.231.41'
+const ip = '192.168.112.41'
 server.listen(port, ip || 'localhost', function() {
     console.log('server running ' + ip + ' port: ' + port + " iniciado")
     console.log('http://' + ip + ':' + port + "/")
