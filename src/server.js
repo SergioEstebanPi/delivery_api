@@ -9,6 +9,12 @@ const admin = require('firebase-admin')
 const serviceAccount = require('../serviceAccountKey.json')
 const passport = require('passport')
 const expressSession = require('express-session')
+const io = require('socket.io')(server);
+
+/*
+SOCKETS
+*/
+const orderDeliverySocket = require('../sockets/orders_delivery_socket')
 
 /*
 INICIALIZAR FIREBASE ADMIN
@@ -48,6 +54,9 @@ app.disable('x-powered-by')
 
 app.set('port', port)
 
+// call sockets
+orderDeliverySocket(io)
+
 // call the routes
 users(app, upload)
 categories(app)
@@ -55,7 +64,7 @@ products(app, upload)
 address(app)
 orders(app)
 
-const ip = '192.168.112.41'
+const ip = '192.168.41.41'
 server.listen(port, ip || 'localhost', function() {
     console.log('server running ' + ip + ' port: ' + port + " iniciado")
     console.log('http://' + ip + ':' + port + "/")
