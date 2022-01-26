@@ -162,4 +162,25 @@ module.exports = {
             });
         }
     },
+
+    async updateLatLng(req, res, next) {
+        try {
+            const order = req.body;
+            console.log(`Orden recibida: ${JSON.stringify(order)}`);
+
+            await Order.updateLatLng(order);
+
+            return res.status(201).json({
+                success: true,
+                message: 'Orden actualizada correctamente'
+            });
+        } catch (error) {
+            console.log(`Error: ${error}`);
+            return res.status(501).json({
+                success: false,
+                message: 'Hubo un error al actualizar la orden',
+                error: error
+            });
+        }
+    },
 }
