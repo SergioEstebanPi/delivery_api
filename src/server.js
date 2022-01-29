@@ -10,6 +10,17 @@ const serviceAccount = require('../serviceAccountKey.json')
 const passport = require('passport')
 const expressSession = require('express-session')
 const io = require('socket.io')(server);
+const mercadopago = require('mercadopago')
+const env = require('../config/env')
+
+/*
+MERCADO PAGO CONFIG
+*/
+mercadopago.configure(
+    {
+        access_token: env.access_token
+    }
+);
 
 /*
 SOCKETS
@@ -33,6 +44,7 @@ const categories = require('../routes/categoriesRoutes')
 const products = require('../routes/productsRoutes')
 const address = require('../routes/addressRoutes')
 const orders = require('../routes/ordersRoutes')
+const mercadoPagoRoutes = require('../routes/mercadoPagoRoutes')
 
 const port = process.env.PORT || 3000
 
@@ -63,8 +75,9 @@ categories(app)
 products(app, upload)
 address(app)
 orders(app)
+mercadoPagoRoutes(app)
 
-const ip = '192.168.41.41'
+const ip = '192.168.245.41'
 server.listen(port, ip || 'localhost', function() {
     console.log('server running ' + ip + ' port: ' + port + " iniciado")
     console.log('http://' + ip + ':' + port + "/")
