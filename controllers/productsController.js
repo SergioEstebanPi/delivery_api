@@ -25,6 +25,27 @@ module.exports = {
         }
     },
 
+    async findByCategoryAndProductName(req, res, next){
+        try{
+            const id_category = req.params.id_category;
+            const product_name = req.params.product_name;
+            const data = await Product.findByCategoryAndProductName(id_category, product_name);
+            console.log(JSON.stringify(data));
+            return res.status(201).json(
+                data
+            );
+        } catch(error){
+            console.log(`Error: ${error}`);
+            return res.status(501).json(
+                {
+                    success: false,
+                    message: `Error al listar los productos`,
+                    error: error
+                }
+            )
+        }
+    },
+
     async create(req, res, next) {
         try {
             const product = JSON.parse(req.body.product);
