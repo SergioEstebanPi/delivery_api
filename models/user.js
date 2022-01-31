@@ -21,6 +21,22 @@ User.getAll = () => {
     return db.manyOrNone(sql);
 }
 
+User.getAdminsNotificationTokens = () => {
+    const sql = `
+        SELECT
+            u.notification_token
+        FROM users u
+        INNER JOIN user_has_roles AS uhr
+        ON uhr.id_user = u.id
+        INNER JOIN roles AS r
+        ON r.id = uhr.id_rol
+        WHERE r.id = 2
+        ;
+    `;
+
+    return db.manyOrNone(sql);
+}
+
 User.findDeliveryMen = () => {
     const sql = `
         SELECT

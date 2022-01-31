@@ -20,6 +20,29 @@ module.exports = {
         }
     },
 
+    async getAdminsNotificationTokens(req, res, next){
+        try{
+            const data = await User.getAdminsNotificationTokens();
+            console.log(`admins notification: ${JSON.stringify(data)}`)
+
+            let tokens = [];
+            
+            if(data){
+                data.forEach( d => {
+                    tokens.push(d.notification_token)
+                });
+            }
+
+            return res.status(200).json(tokens);
+        } catch(err){
+            console.log(`Error: ${err}`)
+            return res.status(500).json({
+                success: false,
+                message: 'Error al obtener repartidores'
+            });
+        }
+    },
+
     async findDeliveryMen(req, res, next){
         try{
             const data = await User.findDeliveryMen();

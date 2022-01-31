@@ -6,6 +6,8 @@ module.exports = (app, upload) => {
     app.get('/api/users/getAll', UsersController.getAll)
     app.get('/api/users/findById/:id', passport.authenticate('jwt', {session: false}), UsersController.findById)
     app.get('/api/users/findDeliveryMen', passport.authenticate('jwt', {session: false}), UsersController.findDeliveryMen)
+    app.get('/api/users/getAdminsNotificationsTokens', passport.authenticate('jwt', {session: false}), UsersController.getAdminsNotificationTokens)
+    
 
     // GUARDAR DATOS
     app.post('/api/users/register', upload.array('image', 1), UsersController.registerWithImage)
