@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const keys = require('../config/keys')
 const Rol = require('../models/Rol')
 const cloud_storage = require('../utils/cloud_storage')
-const { findDeliveryMen } = require('../models/user')
+const { findDeliveryMen, updateNotificationToken } = require('../models/user')
 
 module.exports = {
     async getAll(req, res, next){
@@ -45,6 +45,27 @@ module.exports = {
             return res.status(500).json({
                 success: false,
                 message: 'Error al obtener usuario por id'
+            });
+        }
+    },
+
+    async updateNotificationToken(req, res, next){
+        try{
+            const body = req.body;
+
+            await User.updateNotificationToken(body.id, body.notification_token);
+            console.log(`Usuario: ${JSON.stringify(body)}`)
+
+            return res.status(201).json({
+                success: true,
+                message: 'El token de notificacion se almaceno correctamente'
+            });
+        } catch(err){
+            console.log(`Error: ${err}`)
+            return res.status(500).json({
+                success: false,
+                message: 'Error al actualiar token de notificaciones del usuario',
+                error: err
             });
         }
     },

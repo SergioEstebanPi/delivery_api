@@ -184,6 +184,23 @@ User.updateToken = (id, token) => {
     ]);
 }
 
+User.updateNotificationToken = (id, token) => {
+    const sql = `
+        UPDATE
+            users
+        SET
+            notification_token = $2,
+            updated_at = $3
+        WHERE
+            id = $1
+    `
+    return db.none(sql, [
+        id,
+        token,
+        new Date()
+    ]);
+}
+
 User.update = (user) => {
     const sql = `
         UPDATE
