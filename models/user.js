@@ -13,7 +13,8 @@ User.getAll = () => {
             image,
             phone,
             password,
-            session_token
+            session_token,
+            notification_token
         FROM users;
     `;
 
@@ -30,7 +31,8 @@ User.findDeliveryMen = () => {
             u.image,
             u.phone,
             u.password,
-            u.session_token
+            u.session_token,
+            u.notification_token
         FROM users u
         JOIN user_has_roles uhr
             ON uhr.id_user = u.id
@@ -55,6 +57,7 @@ User.findByEmail = (email) => {
             u.phone,
             u.password,
             u.session_token,
+            u.notification_token,
             json_agg(
                 json_build_object(
                     'id', r.id,
@@ -87,6 +90,7 @@ User.findByUserId = (id) => {
             u.phone,
             u.password,
             u.session_token,
+            u.notification_token,
             json_agg(
                 json_build_object(
                     'id', r.id,
@@ -118,7 +122,8 @@ User.findById = (id, callback) => {
             image,
             phone,
             password,
-            session_token
+            session_token,
+            notification_token
         FROM users
         WHERE id = $1;
     `;
