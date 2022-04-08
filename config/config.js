@@ -1,4 +1,6 @@
 const promise = require('bluebird')
+const env = require('../config/env')
+
 const options = {
     promiseLib: promise,
     query: (e) => {}
@@ -11,11 +13,11 @@ types.setTypeParser(1114, function(stringValue) {
 })
 
 const databaseConfig = {
-    'host': '127.0.0.1',
-    'port': '5432',
-    'database': 'postgres',
-    'user': 'postgres',
-    'password': 'postgres'
+    'host': env.host,
+    'port': env.port,
+    'database': env.database,
+    'user': env.user,
+    'password': env.password
 }
 
 const db = pgp(databaseConfig)
