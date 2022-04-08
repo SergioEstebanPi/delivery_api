@@ -76,10 +76,9 @@ address(app)
 orders(app)
 mercadoPagoRoutes(app)
 
-const ip = env.localhost
-server.listen(port, ip || 'localhost', function() {
-    console.log('server running ' + ip + ' port: ' + port + " iniciado")
-    console.log('http://' + ip + ':' + port + "/")
+server.listen(port, function() {
+    console.log('server running port: ' + port + " iniciado")
+    console.log('http://:' + port + "/")
 })
 
 app.get('/', (req, res) => {
