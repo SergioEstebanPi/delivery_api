@@ -30,7 +30,7 @@ const orderDeliverySocket = require('../sockets/orders_delivery_socket')
 INICIALIZAR FIREBASE ADMIN
 */
 admin.initializeApp({
-    credential: admin.credential.cert(env.serviceAccount)
+    credential: admin.credential.cert(JSON.parse(env.serviceAccount))
 });
 
 const upload = multer({
