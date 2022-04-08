@@ -6,7 +6,6 @@ const logger = require('morgan')
 const cors = require('cors')
 const multer = require('multer')
 const admin = require('firebase-admin')
-const serviceAccount = require('../serviceAccountKey.json')
 const passport = require('passport')
 const expressSession = require('express-session')
 const io = require('socket.io')(server);
@@ -31,7 +30,7 @@ const orderDeliverySocket = require('../sockets/orders_delivery_socket')
 INICIALIZAR FIREBASE ADMIN
 */
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
+    credential: admin.credential.cert(env.serviceAccount)
 });
 
 const upload = multer({

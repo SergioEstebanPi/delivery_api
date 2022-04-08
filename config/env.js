@@ -7,5 +7,6 @@ module.exports = {
     host: process.env.host,
     port: process.env.port,
     user: process.env.user,
-    password: process.env.password
+    password: process.env.password,
+    serviceAccount: process.env.serviceAccount
 }
