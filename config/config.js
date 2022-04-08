@@ -17,7 +17,8 @@ const databaseConfig = {
     'port': env.port,
     'database': env.database,
     'user': env.user,
-    'password': env.password
+    'password': env.password,
+    'ssl': true
 }
 
 const db = pgp(databaseConfig)
