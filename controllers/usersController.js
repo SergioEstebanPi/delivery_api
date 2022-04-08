@@ -1,7 +1,7 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const keys = require('../config/keys')
-const Rol = require('../models/Rol')
+const Rol = require('../models/rol')
 const cloud_storage = require('../utils/cloud_storage')
 const { findDeliveryMen, updateNotificationToken } = require('../models/user')
 
