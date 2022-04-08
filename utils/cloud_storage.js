@@ -8,7 +8,7 @@ const uuid = uuidv4();
 
 const storage = new Storage({
     projectId: "delivery-52266",
-    keyFilename: './serviceAccountKey.json'
+    credentials: JSON.parse(env.serviceAccount)
 });
 
 const bucket = storage.bucket("gs://delivery-52266.appspot.com/");
