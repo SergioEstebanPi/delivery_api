@@ -37,6 +37,7 @@ module.exports = {
         }
     },
 
+    /*
     async findByStatus(req, res, next) {
         try {
             const status = req.params.status;
@@ -52,6 +53,25 @@ module.exports = {
             });
         }
     },
+    */
+
+    async findByUserIdAndStatus(req, res, next) {
+        try {
+            const id_user = req.params.id_user;
+            const status = req.params.status;
+            const data = await Order.findByUserIdAndStatus(id_user, status);
+            console.log(`Ordenes: ${JSON.stringify(data)}`);
+            return res.status(200).json(data);
+        } catch (error) {
+            console.log(`Error: ${error}`);
+            return res.status(501).json({
+                success: false,
+                message: 'Hubo un error al obtener las ordenes',
+                error: error
+            });
+        }
+    },
+
 
     async findByClientId(req, res, next) {
         try {
