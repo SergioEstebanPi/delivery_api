@@ -299,6 +299,7 @@ Order.create = (order) => {
     const sql = `
         INSERT INTO
             orders(
+                id_user,
                 id_client,
                 id_address,
                 status,
@@ -312,7 +313,8 @@ Order.create = (order) => {
             $3,
             $4,
             $5,
-            $6
+            $6,
+            $7
         ) RETURNING id
     `;
     return db.oneOrNone(sql, [
@@ -329,16 +331,18 @@ Order.update = (order) => {
     const sql = `
         UPDATE orders
         SET  
-            id_client = $2,
-            id_address = $3,
-            id_delivery = $4,
-            status = $5,
-            updated_at = $6
+            id_user = $2,
+            id_client = $3,
+            id_address = $4,
+            id_delivery = $5,
+            status = $6,
+            updated_at = $7
         WHERE
             id = $1
     `;
     return db.none(sql, [
         order.id,
+        order.id_user,
         order.id_client,
         order.id_address,
         order.id_delivery,

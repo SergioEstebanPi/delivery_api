@@ -6,6 +6,7 @@ Category.getAll = (category) => {
     const sql = `
         SELECT
             id,
+            id_user,
             name,
             description
         FROM categories
@@ -18,6 +19,7 @@ Category.create = (category) => {
     const sql = `
         INSERT INTO
             categories(
+                id_user,
                 name,
                 description,
                 created_at,
@@ -27,7 +29,8 @@ Category.create = (category) => {
             $1,
             $2,
             $3,
-            $4
+            $4,
+            $5
         ) RETURNING id
     `;
     return db.oneOrNone(

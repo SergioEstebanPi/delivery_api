@@ -96,6 +96,8 @@ module.exports = {
             console.log(`Orden recibida: ${JSON.stringify(order)}`);
 
             const data = await Order.create(order);
+            order.id_user = order.products[0].id_user;
+            Order.update(order);
 
             // recorrer productos agregados a la orden
             for (const product of order.products) {
