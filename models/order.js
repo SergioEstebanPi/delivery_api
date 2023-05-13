@@ -52,7 +52,7 @@ Order.findByStatus = (status) => {
     ON o.id_client = u.id
     LEFT JOIN 
         users AS d
-    ON o.id_client = d.id
+    ON o.id_delivery = d.id
     INNER JOIN
         address AS a
     ON o.id_address = a.id
@@ -122,7 +122,7 @@ Order.findByDeliveryIdAndStatus = (id_delivery, status) => {
     ON o.id_client = u.id
     LEFT JOIN 
         users AS d
-    ON o.id_client = d.id
+    ON o.id_delivery = d.id
     INNER JOIN
         address AS a
     ON o.id_address = a.id
@@ -196,7 +196,7 @@ Order.findByClientIdAndStatus = (id_client, status) => {
     ON o.id_client = u.id
     LEFT JOIN 
         users AS d
-    ON o.id_client = d.id
+    ON o.id_delivery = d.id
     INNER JOIN
         address AS a
     ON o.id_address = a.id
