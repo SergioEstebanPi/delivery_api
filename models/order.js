@@ -318,6 +318,7 @@ Order.create = (order) => {
         ) RETURNING id
     `;
     return db.oneOrNone(sql, [
+        order.id_user,
         order.id_client,
         order.id_address,
         order.status,
