@@ -46,10 +46,12 @@ DROP TABLE IF EXISTS categories CASCADE;
 
 CREATE TABLE categories (
     id BIGSERIAL PRIMARY KEY,
+    id_user BIGSERIAL,
     name VARCHAR(180) NOT NULL UNIQUE,
     description VARCHAR(255) NOT NULL,
     created_at TIMESTAMP(0) NOT NULL,
-    updated_at TIMESTAMP(0) NOT NULL
+    updated_at TIMESTAMP(0) NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
 );
 
 --
@@ -57,6 +59,7 @@ DROP TABLE IF EXISTS products CASCADE;
 
 CREATE TABLE products (
     id BIGSERIAL PRIMARY KEY,
+    id_user BIGSERIAL,
     name VARCHAR(180) NOT NULL UNIQUE,
     description VARCHAR(255) NOT NULL,
     price DECIMAL(10,0) DEFAULT 0,
@@ -66,7 +69,8 @@ CREATE TABLE products (
     id_category BIGINT NOT NULL,
     created_at TIMESTAMP(0) NOT NULL,
     updated_at TIMESTAMP(0) NOT NULL,
-    FOREIGN KEY (id_category) REFERENCES categories(id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (id_category) REFERENCES categories(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (id_user) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 --
@@ -92,6 +96,7 @@ CREATE TABLE orders (
     id_client BIGINT NOT NULL,
     id_delivery BIGINT NULL,
     id_address BIGINT NOT NULL,
+    id_store BIGINT NOT NULL,
     lat DECIMAL DEFAULT 0,
     lng DECIMAL DEFAULT 0,
     status VARCHAR(90),
@@ -101,6 +106,7 @@ CREATE TABLE orders (
     FOREIGN KEY (id_client) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (id_delivery) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (id_address) REFERENCES address(id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (id_store) REFERENCES address(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 --

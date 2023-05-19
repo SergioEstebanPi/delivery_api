@@ -11,6 +11,7 @@ Order.findByStatus = (status) => {
         o.id_client,
         o.id_delivery,
         o.id_address,
+        o.id_store,
         o.status,
         o.timestamp,
         o.lat,
@@ -85,6 +86,7 @@ Order.findByDeliveryIdAndStatus = (id_delivery, status) => {
         o.id_client,
         o.id_delivery,
         o.id_address,
+        o.id_store,
         o.status,
         o.timestamp,
         JSON_AGG(
@@ -118,7 +120,14 @@ Order.findByDeliveryIdAndStatus = (id_delivery, status) => {
             'neighborhood', a.neighborhood,
             'lat', a.lat,
             'lng', a.lng
-        ) AS address
+        ) AS address,
+        JSON_BUILD_OBJECT(
+            'id', ra.id,
+            'address', ra.address,
+            'neighborhood', ra.neighborhood,
+            'lat', ra.lat,
+            'lng', ra.lng
+        ) AS restaurant
     FROM
         orders AS o
     INNER JOIN 
@@ -128,8 +137,14 @@ Order.findByDeliveryIdAndStatus = (id_delivery, status) => {
         users AS d
     ON o.id_delivery = d.id
     INNER JOIN
+        users AS r
+    ON o.id_user = r.id
+    INNER JOIN
         address AS a
-    ON o.id_address = a.id
+    ON o.id_store = a.id
+    INNER JOIN
+        address AS ra
+    ON o.id_store = ra.id
     INNER JOIN
         order_has_products as ohp
     ON o.id = ohp.id_order
@@ -143,7 +158,8 @@ Order.findByDeliveryIdAndStatus = (id_delivery, status) => {
         o.id,
         u.id,
         a.id,
-        d.id
+        d.id,
+        ra.id
     `;
 
     return db.manyOrNone(sql, [id_delivery, status]);
@@ -157,7 +173,8 @@ Order.findByClientIdAndStatus = (id_client, status) => {
         o.id_user,
         o.id_client,
         o.id_delivery,
-        o.id_address,
+        o.id_address,,
+        o.id_store,
         o.status,
         o.timestamp,
         o.lat,
@@ -233,6 +250,7 @@ Order.findByUserIdAndStatus = (user_id, status) => {
         o.id_client,
         o.id_delivery,
         o.id_address,
+        o.id_store,
         o.status,
         o.timestamp,
         o.lat,
