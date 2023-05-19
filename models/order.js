@@ -173,7 +173,7 @@ Order.findByClientIdAndStatus = (id_client, status) => {
         o.id_user,
         o.id_client,
         o.id_delivery,
-        o.id_address,,
+        o.id_address,
         o.id_store,
         o.status,
         o.timestamp,
