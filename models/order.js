@@ -152,6 +152,7 @@ Order.findByClientIdAndStatus = (id_client, status) => {
     const sql = `
     SELECT
         o.id,
+        o.id_user,
         o.id_client,
         o.id_delivery,
         o.id_address,
