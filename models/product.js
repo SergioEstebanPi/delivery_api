@@ -19,6 +19,7 @@ Product.findByCategoryId = (id_category) => {
     const sql = `
         SELECT
             p.id,
+            p.id_user,
             p.name,
             p.description,
             p.price,
@@ -44,6 +45,7 @@ Product.findByCategoryAndProductName = (id_category, product_name) => {
     const sql = `
         SELECT
             p.id,
+            p.id_user,
             p.name,
             p.description,
             p.price,

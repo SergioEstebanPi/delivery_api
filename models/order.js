@@ -7,6 +7,7 @@ Order.findByStatus = (status) => {
     const sql = `
     SELECT
         o.id,
+        o.id_user,
         o.id_client,
         o.id_delivery,
         o.id_address,
@@ -80,6 +81,7 @@ Order.findByDeliveryIdAndStatus = (id_delivery, status) => {
     const sql = `
     SELECT
         o.id,
+        o.id_user,
         o.id_client,
         o.id_delivery,
         o.id_address,
@@ -227,6 +229,7 @@ Order.findByUserIdAndStatus = (user_id, status) => {
     const sql = `
     SELECT
         o.id,
+        o.id_user,
         o.id_client,
         o.id_delivery,
         o.id_address,
