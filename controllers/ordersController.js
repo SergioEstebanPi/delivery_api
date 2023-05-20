@@ -163,6 +163,28 @@ module.exports = {
         }
     },
 
+    async updateToCanceled(req, res, next) {
+        try {
+            const order = req.body;
+            order.status = 'CANCELADO';
+            console.log(`Orden recibida: ${JSON.stringify(order)}`);
+
+            await Order.update(order);
+
+            return res.status(201).json({
+                success: true,
+                message: 'Orden actualizada correctamente'
+            });
+        } catch (error) {
+            console.log(`Error: ${error}`);
+            return res.status(501).json({
+                success: false,
+                message: 'Hubo un error al actualizar la orden',
+                error: error
+            });
+        }
+    },
+
     async updateToOnTheWay(req, res, next) {
         try {
             const order = req.body;
