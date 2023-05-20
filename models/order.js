@@ -109,6 +109,13 @@ Order.findByDeliveryIdAndStatus = (id_delivery, status) => {
             'image', u.image
         ) AS client,
         JSON_BUILD_OBJECT(
+            'id', r.id,
+            'name', r.name,
+            'lastname', r.lastname,
+            'phone', r.phone,
+            'image', r.image
+        ) AS restaurant,
+        JSON_BUILD_OBJECT(
             'id', d.id,
             'name', d.name,
             'lastname', d.lastname,
@@ -122,29 +129,29 @@ Order.findByDeliveryIdAndStatus = (id_delivery, status) => {
             'lng', a.lng
         ) AS address,
         JSON_BUILD_OBJECT(
-            'id', ra.id,
-            'address', ra.address,
-            'neighborhood', ra.neighborhood,
-            'lat', ra.lat,
-            'lng', ra.lng
-        ) AS restaurant
+            'id', s.id,
+            'address', s.address,
+            'neighborhood', s.neighborhood,
+            'lat', s.lat,
+            'lng', s.lng
+        ) AS store
     FROM
         orders AS o
     INNER JOIN 
         users AS u
     ON o.id_client = u.id
+    INNER JOIN
+        users AS r
+    ON o.id_user = r.id
     LEFT JOIN 
         users AS d
     ON o.id_delivery = d.id
     INNER JOIN
-        users AS r
-    ON o.id_user = r.id
-    INNER JOIN
         address AS a
     ON o.id_store = a.id
     INNER JOIN
-        address AS ra
-    ON o.id_store = ra.id
+        address AS s
+    ON o.id_store = s.id
     INNER JOIN
         order_has_products as ohp
     ON o.id = ohp.id_order
@@ -157,9 +164,10 @@ Order.findByDeliveryIdAndStatus = (id_delivery, status) => {
     GROUP BY
         o.id,
         u.id,
-        a.id,
         d.id,
-        ra.id
+        r.id,
+        a.id,
+        s.id
     `;
 
     return db.manyOrNone(sql, [id_delivery, status]);
