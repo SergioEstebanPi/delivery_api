@@ -39,6 +39,7 @@ Order.findByStatus = (status) => {
             'id', d.id,
             'name', d.name,
             'lastname', d.lastname,
+            'phone', d.phone,
             'image', d.image
         ) AS delivery,
         JSON_BUILD_OBJECT(
@@ -119,6 +120,7 @@ Order.findByDeliveryIdAndStatus = (id_delivery, status) => {
             'id', d.id,
             'name', d.name,
             'lastname', d.lastname,
+            'phone', d.phone,
             'image', d.image
         ) AS delivery,
         JSON_BUILD_OBJECT(
@@ -210,6 +212,7 @@ Order.findByClientIdAndStatus = (id_client, status) => {
             'id', d.id,
             'name', d.name,
             'lastname', d.lastname,
+            'phone', d.phone,
             'image', d.image
         ) AS delivery,
         JSON_BUILD_OBJECT(
@@ -286,6 +289,7 @@ Order.findByUserIdAndStatus = (user_id, status) => {
             'id', d.id,
             'name', d.name,
             'lastname', d.lastname,
+            'phone', d.phone,
             'image', d.image
         ) AS delivery,
         JSON_BUILD_OBJECT(
