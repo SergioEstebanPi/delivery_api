@@ -10,7 +10,8 @@ module.exports = (app, upload) => {
     
 
     // GUARDAR DATOS
-    app.post('/api/users/register', upload.array('image', 1), UsersController.registerWithImage)
+    //app.post('/api/users/register', upload.array('image', 1), UsersController.registerWithImage)
+    app.post('/api/users/register', UsersController.register)
     app.post('/api/users/login', UsersController.login)
     app.post('/api/users/logout', UsersController.logout)
 

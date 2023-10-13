@@ -5,10 +5,12 @@ const url = require('url');
 const { v4: uuidv4 } = require('uuid');
 const uuid = uuidv4();
 
+const serviceAccount = require('../serviceAccountKey.json')
 
 const storage = new Storage({
     projectId: "delivery-52266",
-    credentials: JSON.parse(env.serviceAccount)
+    //credentials: JSON.parse(env.serviceAccount)
+    credentials: serviceAccount
 });
 
 const bucket = storage.bucket("gs://delivery-52266.appspot.com/");

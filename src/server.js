@@ -26,11 +26,14 @@ SOCKETS
 */
 const orderDeliverySocket = require('../sockets/orders_delivery_socket')
 
+const serviceAccount = require('../serviceAccountKey.json')
+
 /*
 INICIALIZAR FIREBASE ADMIN
 */
 admin.initializeApp({
-    credential: admin.credential.cert(JSON.parse(env.serviceAccount))
+    //credential: admin.credential.cert(JSON.parse(env.serviceAccount))
+    credential: admin.credential.cert(serviceAccount)
 });
 
 const upload = multer({
@@ -44,6 +47,7 @@ const products = require('../routes/productsRoutes')
 const address = require('../routes/addressRoutes')
 const orders = require('../routes/ordersRoutes')
 const mercadoPagoRoutes = require('../routes/mercadoPagoRoutes')
+const epaycoRoutes = require('../routes/epaycoRoutes')
 
 const port = process.env.PORT || 3000
 
@@ -75,10 +79,13 @@ products(app, upload)
 address(app)
 orders(app)
 mercadoPagoRoutes(app)
+epaycoRoutes(app)
 
 server.listen(port, function() {
+    var ip =  env.localhost;
+    console.log('IP address: ' + ip)
     console.log('server running port: ' + port + " iniciado")
-    console.log('http://:' + port + "/")
+    console.log('http://' + ip + ":" + port + "/")
 })
 
 app.get('/', (req, res) => {

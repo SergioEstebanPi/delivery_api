@@ -36,6 +36,7 @@ Category.create = (category) => {
     return db.oneOrNone(
         sql,
         [
+            category.user_id,
             category.name,
             category.description,
             new Date(),

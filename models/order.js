@@ -87,7 +87,6 @@ Order.findByDeliveryIdAndStatus = (id_delivery, status) => {
         o.id_client,
         o.id_delivery,
         o.id_address,
-        o.id_store,
         o.status,
         o.timestamp,
         JSON_AGG(
@@ -336,6 +335,7 @@ Order.create = (order) => {
                 id_user,
                 id_client,
                 id_address,
+                id_store,
                 status,
                 timestamp,
                 created_at,
@@ -348,13 +348,15 @@ Order.create = (order) => {
             $4,
             $5,
             $6,
-            $7
+            $7,
+            $8
         ) RETURNING id
     `;
     return db.oneOrNone(sql, [
         order.id_user,
         order.id_client,
         order.id_address,
+        order.id_store,
         order.status,
         Date.now(),
         new Date(),
@@ -369,9 +371,10 @@ Order.update = (order) => {
             id_user = $2,
             id_client = $3,
             id_address = $4,
-            id_delivery = $5,
-            status = $6,
-            updated_at = $7
+            id_store = $5,
+            id_delivery = $6,
+            status = $7,
+            updated_at = $8
         WHERE
             id = $1
     `;
@@ -380,6 +383,7 @@ Order.update = (order) => {
         order.id_user,
         order.id_client,
         order.id_address,
+        order.id_store,
         order.id_delivery,
         order.status,
         new Date()
